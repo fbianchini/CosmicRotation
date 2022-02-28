@@ -18,6 +18,14 @@ def dotprod(l1, l2):
     return l1[0]*l2[0] + l1[1]*l2[1]
 
 @numba.jit
+def ltoangle(l1):
+    angle = np.arctan2(l1[1], l1[0])
+
+    if (angle < 0): angle += 2 * np.pi #// this normalises the angle between [0,2pi)...do we need it?
+
+    return angle
+
+@numba.jit
 def anglebetween(l1, l2):
     angle = np.arctan2(l2[1], l2[0]) - np.arctan2(l1[1], l1[0])
 
